@@ -2,6 +2,8 @@
 
 The SolidWorks study models a spoked flywheel, vertical motor, rotating deck stack, and lower support. See the [full assembly view](previews/reaction-wheel-full-assembly.png), the [alternate design view](previews/lab-assembly.png), and the [deck-stack detail](previews/deck-stack.png).
 
+The designs were originally developed with CNC fabrication in mind. During the physical build, some parts were modified for 3D printing. These CAD files are therefore design-study artifacts and should not be assumed to be an exact as-built representation of every printed component.
+
 ## Editable SolidWorks files
 
 Clone or download the complete repository before opening an assembly so its component folders are available.
