@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/generate-demo-gif.yml'
+      - 'README.md'
   workflow_dispatch:
 
 permissions:
