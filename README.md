@@ -18,10 +18,10 @@ The wheel and base rotate about a common vertical axis. The motor applies **equa
 
 | Symbol | Meaning |
 | --- | --- |
-| `\theta_b,\ \omega_b` | Base angle and angular velocity |
-| `\theta_w,\ \omega_w` | Wheel angle and angular velocity |
-| `J_b,\ J_w` | Base and wheel moments of inertia |
-| `i,\ K_t,\ N,\ \eta` | Motor current, torque constant, gear ratio, efficiency |
+| θ<sub>b</sub>, ω<sub>b</sub> | Base angle and angular velocity |
+| θ<sub>w</sub>, ω<sub>w</sub> | Wheel angle and angular velocity |
+| J<sub>b</sub>, J<sub>w</sub> | Base and wheel moments of inertia |
+| i, K<sub>t</sub>, N, η | Motor current, torque constant, gear ratio, and transmission efficiency |
 
 ```math
 \begin{aligned}
@@ -48,17 +48,19 @@ L\dot i = V_m - Ri - K_e N(\omega_w-\omega_b).
 | Wheel-speed PI | Regulate relative wheel speed | Wheel-speed PI feeding an inner current PI loop |
 | Base-angle PD | Regulate rotating-base angle | Outer angle PD requesting wheel torque, followed by current PI |
 
-For base-angle control, the **negative sign** is physically important: positive wheel torque accelerates the base in the opposite direction.
+For **base-angle PD control**, the desired wheel torque has the opposite sign to the desired base torque:
 
 ```math
 \begin{aligned}
 e_\theta &= \theta_{\mathrm{ref}}-\theta_b, \\
-\tau_{w,\mathrm{des}} &= -\bigl(K_p e_\theta-K_d\omega_b\bigr), \\
-i_{\mathrm{ref}} &= \operatorname{sat}\!\left(\frac{\tau_{w,\mathrm{des}}}{\eta N K_t}\right).
+\tau_{w,\mathrm{des}} &= -K_p e_\theta + K_d\omega_b, \\
+i_{\mathrm{ref}}^{*} &= \frac{\tau_{w,\mathrm{des}}}{\eta N K_t}.
 \end{aligned}
 ```
 
-The simulation includes motor/battery behavior, friction, command saturation, current and speed limits, and a [safety supervisor](simulation/matlab/safety_supervisor.m). See the [controller code](simulation/matlab/rw_controller.m) for implementation details.
+The requested motor current is **clamped to the allowable range** before being regulated by an inner PI current loop. The [controller implementation](simulation/matlab/rw_controller.m) includes this limit and anti-windup logic.
+
+The MATLAB studies also model motor/battery behavior, friction, voltage and speed limits, and a [safety supervisor](simulation/matlab/safety_supervisor.m). These are *simulation features*, not verified hardware-control results.
 
 ## Physical build and fabrication
 
