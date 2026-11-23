@@ -1,36 +1,52 @@
-name: Generate bench demo GIF
+name: Build reaction-wheel GIF preview
 
 on:
   push:
     paths:
-      - '.github/workflows/generate-demo-gif.yml'
-      - 'README.md'
+      - README.md
+      - .github/workflows/generate-demo-gif.yml
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  render-gif:
+  preview:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Generate short looping GIF from physical bench video
+      - name: Extract looping preview from bench video
         run: |
           ffmpeg -hide_banner -loglevel error -y \
             -i evidence/videos/bench-operation.mp4 -t 6 \
-            -filter_complex "[0:v]fps=8,scale=640:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=80[p];[s1][p]paletteuse=dither=bayer:bayer_scale=4" \
+            -filter_complex "[0:v]fps=8,scale=480:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=64[p];[b][p]paletteuse=dither=bayer:bayer_scale=4" \
             -loop 0 evidence/videos/reaction-wheel-demo.gif
           test -s evidence/videos/reaction-wheel-demo.gif
 
-      - name: Commit generated GIF
+      - name: Embed preview only after GIF exists
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          readme = Path('README.md')
+          source = readme.read_text(encoding='utf-8')
+          target = '<!-- AUTO_GIF_PREVIEW -->'
+          replacement = (
+              '<p align="center">\n'
+              '  <img src="evidence/videos/reaction-wheel-demo.gif" alt="Reaction wheel rotating during the physical bench demonstration" width="520">\n'
+              '</p>\n'
+              '<p align="center"><sub>Looping excerpt from the physical bench demonstration</sub></p>'
+          )
+          if target in source:
+              readme.write_text(source.replace(target, replacement), encoding='utf-8')
+          PY
+
+      - name: Commit GIF and updated README
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add evidence/videos/reaction-wheel-demo.gif
+          git add evidence/videos/reaction-wheel-demo.gif README.md
           if ! git diff --cached --quiet; then
-            git commit -m "Add optimized reaction-wheel bench GIF"
+            git commit -m "Add real GIF preview from physical bench video"
             git push
           fi
