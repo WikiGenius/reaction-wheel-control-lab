@@ -1,0 +1,9 @@
+*.md text eol=lf
+*.m text eol=lf
+*.[sS][tT][eE][pP] -text -diff
+*.[sS][tT][pP] -text -diff
+*.[sS][lL][dD][aA][sS][mM] binary
+*.[sS][lL][dD][pP][rR][tT] binary
+*.[sS][lL][dD][dD][rR][wW] binary
+*.asm binary
+*.prt binary

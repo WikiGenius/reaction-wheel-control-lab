@@ -1,0 +1,74 @@
+"____ VERSION / MIRROR CONTROL ____" = 0
+"SYS_VersionTag" = 2.00
+"HUB_IsMachinedMetal" = 1
+
+"____ BEARING BLOCK ____" = 0
+"BRG_BearingOD" = 22mm
+"BRG_BearingWidth" = 7mm
+"BRG_InnerRingSpacing" = 50mm
+
+"____ FIXED SHAFT / INNER-RING HARDWARE ____" = 0
+"HW_WasherThk" = 1.6mm
+"HW_CollarOD" = 20mm
+"HW_CollarWidth" = 9mm
+"REQ_LowerHardwareHeight" = "HW_WasherThk" + "HW_CollarWidth"
+"BRG_ClearanceBelowLowerHardware" = 2mm
+
+"____ HUB SEATS + BRIDGE ____" = 0
+"HUB_OuterRingSeatFitOffsetDia" = IIF("HUB_IsMachinedMetal" > 0, 0.02mm, -0.05mm)
+"HUB_OuterRingSeatDia" = "BRG_BearingOD" - "HUB_OuterRingSeatFitOffsetDia"
+"HUB_OuterRingSeatAxialDepth" = "BRG_BearingWidth"
+"HUB_MainBodyOD" = 48mm
+"HUB_SeatToSeatBridgeLen" = "BRG_InnerRingSpacing"
+
+"____ HUB INNER STOP + LOWER HARDWARE RELIEF ____" = 0
+"HUB_BridgeStopRadialClearOverLowerHardware" = 0.14mm
+"HUB_BridgeStopDia" = "HW_CollarOD" + 2*"HUB_BridgeStopRadialClearOverLowerHardware"
+"HUB_LowerHardwareReliefRequiredDepth" = "REQ_LowerHardwareHeight" + "BRG_ClearanceBelowLowerHardware" + 0.5mm
+"HUB_LowerHardwareReliefDepthMargin" = 0.5mm
+"HUB_LowerHardwareReliefDepth" = "HUB_LowerHardwareReliefRequiredDepth" + "HUB_LowerHardwareReliefDepthMargin"
+"HUB_MainBodyBelowLowerSeatDepth" = "HUB_LowerHardwareReliefDepth"
+
+"____ HUB RETAINERS + DECK INTERFACE ____" = 0
+"HUB_RetainerScrewSize" = 3mm
+"HUB_RetainerScrewCount" = 4
+"HUB_RetainerClearDia" = 3.4mm
+"HUB_RetainerTapDia" = 2.5mm
+"HUB_RetainerEdgeMin" = 1.5mm
+"HUB_RetainerBoltR" = ("HUB_MainBodyOD" / 2) - ("HUB_RetainerClearDia" / 2) - "HUB_RetainerEdgeMin"
+"HUB_RetainerBCDia" = 2*"HUB_RetainerBoltR"
+
+"____ HUB RETAINER THREAD / BLIND-HOLE MACHINING INTENT ____" = 0
+"HUB_RetainerHoleStyle_Blind" = 1
+"HUB_RetainerThreadEngagementMin" = 3.0mm
+"HUB_RetainerThreadEngagementTarget" = 4.5mm
+"HUB_RetainerBottomDrillAllowance" = 1.5mm
+"HUB_RetainerBlindHoleDepth" = "HUB_RetainerThreadEngagementTarget" + "HUB_RetainerBottomDrillAllowance"
+"HUB_RetainerTapDepth" = "HUB_RetainerBlindHoleDepth"
+"HUB_RetainerMaxUsableThreadDepth" = "HUB_RetainerBlindHoleDepth" - "HUB_RetainerBottomDrillAllowance"
+"HUB_RetainerScrewIntoHubTarget" = "HUB_RetainerThreadEngagementTarget"
+"HUB_RetainerScrewIntoHubMin" = "HUB_RetainerThreadEngagementMin"
+"HUB_DeckMountCount" = 4
+"HUB_DeckMountClearDia" = 4.5mm
+"HUB_DeckMountBCDia" = 58mm
+
+"____ HUB VARIABLE COMPATIBILITY ALIASES (KEEP v2.00 MAP STABLE) ____" = 0
+"HUB_BearingSeatDia" = "HUB_OuterRingSeatDia"
+"HUB_BearingSeatDepth" = "HUB_OuterRingSeatAxialDepth"
+"HUB_BodyOD" = "HUB_MainBodyOD"
+"HUB_SeatBridgeLen" = "HUB_SeatToSeatBridgeLen"
+"HUB_LowerClearanceDia" = "HUB_BridgeStopDia"
+"HUB_LowerOverallDepth" = "HUB_MainBodyBelowLowerSeatDepth"
+"HUB_LowerClearancePocketDepth" = "HUB_LowerHardwareReliefDepth"
+
+"____ SANITY CHECKS ____" = 0
+"CHK_HubRetainerHoleStyleBlind" = "HUB_RetainerHoleStyle_Blind"
+"CHK_HubRetainerThreadEngagementMeetsMin" = "HUB_RetainerThreadEngagementTarget" - "HUB_RetainerThreadEngagementMin"
+"CHK_HubRetainerBlindHoleDepthPositive" = "HUB_RetainerBlindHoleDepth"
+"CHK_HubRetainerUsableThreadDepthMeetsMin" = "HUB_RetainerMaxUsableThreadDepth" - "HUB_RetainerThreadEngagementMin"
+"OUT_HubRetainerTapHoleCenterRadius" = "HUB_RetainerBCDia" / 2
+"OUT_HubRetainerTapHoleInnerEdgeRadius" = "OUT_HubRetainerTapHoleCenterRadius" - ("HUB_RetainerTapDia" / 2)
+"OUT_HubSeatOuterRadius" = "HUB_BearingSeatDia" / 2
+"OUT_HubBridgeStopOuterRadius" = "HUB_LowerClearanceDia" / 2
+"CHK_HubRetainerTapHoleOutsideSeat" = "OUT_HubRetainerTapHoleInnerEdgeRadius" - "OUT_HubSeatOuterRadius"
+"CHK_HubRetainerTapHoleOutsideBridgeStop" = "OUT_HubRetainerTapHoleInnerEdgeRadius" - "OUT_HubBridgeStopOuterRadius"

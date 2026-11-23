@@ -1,0 +1,435 @@
+AUTHORITY MIRROR REVIEW / AUDIT — v2.00
+Project: Reaction_Wheel_Lab_Project
+Status: Controlled mirror audit after portable-lab base / wheel-safety master update
+Intent: Keep the locked v2.00 stack synchronized after updating the master for portable lab safety, guarded wheel operation, and removable ballast support
+
+1) PURPOSE
+This audit records the controlled mirror state that must now match the current
+`Master_Skeleton_Equations_v2.00.txt`.
+
+The current controlled objective is now twofold:
+- preserve the existing fixed-stack protection and serviceability logic
+- strengthen the portable lab release by improving base stability, guarded wheel operation, and reversible high-stability upgrades
+
+2) WHAT THIS AUDIT NOW RECOGNIZES AS AUTHORITATIVE
+The current v2.00 master contains the following active controlled semantics:
+- `LDG_*` = Lower-Deck Labyrinth Guard
+- `CDG_*` = Upper Removable Rotation-to-Fixed Guard
+- `GB_*` portable-base extensions for feet and removable ballast
+- `WHG_*` wheel-guard interface family
+- portable operating-policy limits tied to wheel speed and support condition
+
+These are all part of the active controlled v2.00 semantics.
+
+3) CONTROLLED DESIGN INTENT — FIXED-STACK PROTECTION
+The fixed-stack protection concept remains:
+- two separable guards
+- lower guard mounted on `Lower_Hardware_Deck`
+- upper guard owned by `Controller_Disk` but realized as a removable part
+- both guards are non-structural
+- both guards are lightweight / 3D-print-preferred
+- both guards participate in a labyrinth relationship around the fixed stack
+
+This remains a protection / containment / routing-discipline architecture only.
+It is not a deck-stiffness architecture and not a payload support architecture.
+
+4) LOWER GUARD INTENT (`LDG_*`)
+The lower guard remains interpreted as:
+- lower-deck-mounted
+- non-structural
+- 3D-print-preferred
+- flange-mounted
+- rising upward from the lower utility deck
+- providing the lower half of the labyrinth envelope
+- preserving deck center clearance with a small intentional radial margin
+
+Controlled values currently mirrored from the master:
+- `LDG_FlangeThk = 3.0 mm`
+- `LDG_MountCount = 3`
+- `LDG_MountClearDia = 3.4 mm`
+- `LDG_MountBCDia = 48 mm`
+- `LDG_ID = UTL_CentralClearDia + 0.75 mm`
+- `LDG_WallThk = 3.75 mm`
+- `LDG_TargetSkirtLength = 18.0 mm`
+- `LDG_SkirtLength = 18.0 mm`
+- `LDG_ServiceSlotWidth = 8.0 mm`
+- `LDG_ServiceSlotSectorDeg = CTRL_ServiceSectorDeg`
+
+5) UPPER GUARD INTENT (`CDG_*`)
+The upper guard remains interpreted as:
+- controller-disk-owned interface
+- removable separate part, not integral disk geometry
+- non-structural
+- 3D-print-preferred
+- mounted around the encoder cavity perimeter
+- descending downward from the controller-disk side
+- providing the upper half of the labyrinth envelope
+- preserving fixed-stack radial clearance
+
+Controlled values currently mirrored from the master:
+- `CDG_FlangeThk = 3.0 mm`
+- `CDG_MountCount = 3`
+- `CDG_MountClearDia = 3.4 mm`
+- `CDG_MountBCDia = 54 mm`
+- `CDG_ID = ENCCAV_Dia + 0.5 mm`
+- `CDG_WallThk = 2.0 mm`
+- `CDG_ServiceSlotWidth = 10.0 mm`
+- `CDG_ServiceSlotHeight = 18.0 mm`
+- `CDG_ServiceSlotSectorDeg = CTRL_ServiceSectorDeg`
+
+6) IMPORTANT CHANGE IN GOVERNING LOGIC FOR FIXED-STACK PROTECTION
+This audit continues to recognize that the upper guard is no longer governed as a simple
+short lip limited only by the fixed-stack tip.
+
+The master explicitly disables that legacy interpretation through:
+- `CDG_LegacyFixedTipLimiterDisabled = 1`
+
+The current controlled intent remains overlap-driven labyrinth protection.
+The key governing logic includes:
+- `CDG_DesiredAxialOverlapWithLDG`
+- `CDG_LDG_TotalReach`
+- `CDG_RequiredTotalReachForOverlap`
+- `CDG_RequiredSkirtLengthForOverlap`
+- `CHK_CDG_LDG_RadialNestClearPerSide`
+- `CHK_CDG_LDG_AxialOverlap`
+
+7) WHAT THIS MEANS PHYSICALLY FOR FIXED-STACK PROTECTION
+The current authority is not:
+- “short upper lip only”
+
+The current authority is:
+- lower guard + upper guard together provide protection around the fixed stack
+- radial nesting must remain positive
+- axial overlap must remain positive / intentional
+- guards must not become structural members
+
+8) FIXED-STACK OWNERSHIP REMAINS FROZEN
+This audit does NOT move ownership away from the fixed-stack subsystem.
+The following remain protected and must not be casually changed:
+- shaft planes
+- bearing planes
+- magnet face and seat chain
+- encoder face / PCB / mount surface chain
+- controller-disk cavity baseline
+- lower utility deck locked height unless deliberately revised upstream
+
+9) WIRING / SERVICE-SECTOR DISCIPLINE
+The fixed-stack protection concept must remain compatible with the current
+service-sector logic already present in the master:
+- primary service sector = 225 deg
+- encoder bundle exits through the primary sector discipline
+- primary bundle must not cross the protected center
+
+Therefore:
+- upper guard service slot must align with the service sector
+- lower guard service slot must align with the service sector
+- no closed 360-degree guard interpretation is acceptable if it blocks serviceability
+
+10) WHAT THIS AUDIT REJECTS IN THE FIXED-STACK REGION
+The current controlled audit rejects the following interpretations:
+- upper guard as a purely integral short disk lip only
+- lower and upper guards treated as structural deck spacers
+- guards used to carry heavy payloads
+- guards used as battery / electronics support decks
+- any interpretation that blocks encoder service routing through the service sector
+- any interpretation that creates contact with the fixed stack
+
+11) PORTABLE LAB BASE INTENT (`GB_*`)
+The current v2.00 master now also carries explicit portable-lab base semantics.
+The ground base is no longer interpreted as only a minimal proof-of-concept plate.
+It is now intentionally interpreted as:
+- portable-first, not fixed-bench-only
+- wider than the earlier baseline for better free-standing stability
+- still aluminum-first for carry weight control
+- compatible with optional bench mounting
+- compatible with optional reversible ballast installation
+
+Controlled values currently mirrored from the master:
+- `GB_BaseOD = 220 mm`
+- `GB_BasePlateThk = 10 mm`
+- `GB_BenchMountCount = 4`
+- `GB_BenchMountBCD = 170 mm`
+- `GB_BenchHoleClearDia = 5.5 mm`
+- `GB_Material6061T6 = 1`
+
+12) RUBBER FEET INTENT
+The current v2.00 master now explicitly enables underside feet.
+These are interpreted as:
+- non-structural contact elements
+- friction-increasing / surface-protecting interface items
+- mounted near the outer region of the base
+- compatible with portable desk / benchtop use
+
+Controlled values currently mirrored from the master:
+- `GB_FeetEnabled = 1`
+- `GB_FeetCount = 4`
+- `GB_FeetOD = 20 mm`
+- `GB_FeetThk = 4 mm`
+- `GB_FeetBCD = 180 mm`
+- `GB_FeetIsNonMarringElastomer = 1`
+- `GB_FeetTargetDurometerA = 60`
+
+Design intent summary:
+- feet are not a leveling mechanism for bad structure
+- feet are not a substitute for ballast or bench mounting at higher-speed conditions
+- feet exist to improve normal portable use, friction, and bench friendliness
+
+13) REMOVABLE BALLAST INTENT
+The current v2.00 master now explicitly enables a removable ballast option.
+This is interpreted as:
+- underside-mounted
+- reversible / removable
+- steel-preferred
+- ring-shaped by default
+- optional stability upgrade, not mandatory for all use cases
+
+Controlled values currently mirrored from the master:
+- `GB_RemovableBallastEnabled = 1`
+- `GB_RemovableBallastShapeRing = 1`
+- `GB_RemovableBallastMaterialSteel = 1`
+- `GB_RemovableBallastOD = 180 mm`
+- `GB_RemovableBallastID = 100 mm`
+- `GB_RemovableBallastThk = 4 mm`
+- `GB_RemovableBallastMountCount = 4`
+- `GB_RemovableBallastMountBCD = 140 mm`
+- `GB_RemovableBallastMountClearDia = 5.5 mm`
+- `GB_RemovableBallastNominalMass_g = 552`
+
+Design intent summary:
+- ballast is an upgrade path for higher-stability or higher-speed conditions
+- ballast must not destroy portability when removed
+- ballast is not meant to replace a correct wheel balance or a correct assembly process
+
+14) WHEEL ADAPTER INTENT (`WAD_*`)
+The active v2.00 master is now interpreted around an off-the-shelf vendor hub path rather than a custom machined split-clamp adapter.
+The controlled adapter intent is now:
+- vendor-purchased hub
+- 6 mm shaft compatible
+- M3 mounting-hole family
+- set-screw retained on the motor shaft
+- used as the wheel-to-motor interface only
+- not reinterpreted as a large custom faceplate
+
+Controlled values currently mirrored from the master:
+- `WAD_UsesVendorPololuHub = 1`
+- `WAD_UsesCustomMachinedAdapter = 0`
+- `WAD_VendorPololuItem1999_M3 = 1`
+- `WAD_OD = 25.4 mm`
+- `WAD_Thk = 9.2 mm`
+- `WAD_FlangeThk = 5.0 mm`
+- `WAD_PilotBossDia = 12.0 mm`
+- `WAD_PilotBossHeight = 4.2 mm`
+- `WAD_BoreDia = 6.0 mm`
+- `WAD_BCD = 19.0 mm`
+- `WAD_BoltCount = 6`
+- `WAD_BoltClearDia = 3.4 mm`
+- `WAD_BoltTapDia = 2.5 mm`
+- `WAD_SetScrewCount = 2`
+- `WAD_SetScrewSize = 3.0 mm`
+- `WAD_SplitClampRequired = 0`
+
+Design intent summary:
+- the purchased hub is the active wheel adapter path
+- the old large custom split-clamp adapter is no longer the governing interpretation
+- the wheel must now match the real vendor interface instead of forcing the vendor hub into the old 4-bolt / 30 mm BCD logic
+
+15) REACTION WHEEL BODY INTENT (`WHL_*`)
+The active v2.00 master no longer treats the reaction wheel as only a bare annulus with no motor-interface path.
+The controlled wheel intent is now:
+- one-piece 6061-T6 wheel body
+- center pad sized for the vendor hub
+- pilot hole for concentric seating on the hub boss
+- six hub-mount clearance holes matching the vendor hub
+- four symmetric spokes / web arms
+- outer rim kept dominant for inertia
+- tuning provisions integrated into the rim
+- static-balance discipline remains mandatory
+
+Controlled values currently mirrored from the master:
+- `WHL_UsesOnePieceWebbedWheel = 1`
+- `WHL_WheelOD = 140 mm`
+- `WHL_WheelThk = 10 mm`
+- `WHL_CenterPadOD = 34 mm`
+- `WHL_HubPilotHoleDia = 12.2 mm`
+- `WHL_HubMountBCD = 19.0 mm`
+- `WHL_HubMountCount = 6`
+- `WHL_HubMountClearDia = 3.4 mm`
+- `WHL_WebCount = 4`
+- `WHL_WebWidth = 10.0 mm`
+- `WHL_WebFilletR = 6.0 mm`
+- `WHL_RimInnerDia = 114 mm`
+- `WHL_AnnulusRadialWidth = 13 mm`
+- `WHL_StaticBalanceRequired = 1`
+- `WHL_OuterRimTIRTarget = 0.10 mm`
+- `MASS_WHL_BareBody_g = 203`
+- `WHL_InertiaBaseline_kgm2 = 0.000639`
+
+Design intent summary:
+- the wheel is now a complete rotating part, not an incomplete ring waiting for an undefined center structure
+- the center web is intentionally light, while the rim remains the dominant inertial region
+- this is a packaging-and-procurement optimization around the selected vendor hub, not a casual change in lab safety discipline
+
+16) INERTIA-TUNING INTENT (WITHIN `WHL_*`)
+The active v2.00 master now interprets inertia tuning as:
+- flush radial set-screw stations in the outer rim
+- symmetric tuning only
+- no protruding face-bolt stacks as the baseline tuning method
+- no single-bolt asymmetric tuning allowed in normal release intent
+
+Controlled values currently mirrored from the master:
+- `WHL_TuneUsesFlushRadialSetScrews = 1`
+- `WHL_TuneStationCount = 8`
+- `WHL_TuneStationOffsetDeg = 22.5`
+- `WHL_TuneThreadNominal = 4.0 mm`
+- `WHL_TuneTapDrillDia = 3.3 mm`
+- `WHL_TuneTapDepth = 10.0 mm`
+- `WHL_TuneMinimumInnerWall = 2.5 mm`
+- `WHL_TuneSetScrewNominalLength = 8.0 mm`
+
+Design intent summary:
+- tuning mass stays near the large radius where it is most effective
+- tuning hardware remains inside the wheel-guard envelope
+- tuning should be applied in opposite or fully symmetric patterns to preserve balance
+
+17) WHEEL GUARD INTENT (`WHG_*`)
+The current v2.00 master keeps the wheel-guard family active.
+This guard remains interpreted as:
+- separate from the fixed-stack labyrinth guards
+- non-structural
+- safety / contact-prevention / containment-adjacent geometry only
+- polycarbonate-preferred for visibility and practical lab use
+- mounted around the wheel region, not around the fixed-stack encoder region
+
+Controlled values currently mirrored from the master:
+- `WHG_Enabled = 1`
+- `WHG_IsStructural = 0`
+- `WHG_IsPolycarbonatePreferred = 1`
+- `WHG_ClearRadOverWheel = 8 mm`
+- `WHG_WallThk = 3 mm`
+- `WHG_AxialClearEachSide = 8 mm`
+- `WHG_MountCount = 4`
+- `WHG_MountClearDia = 4.5 mm`
+- `WHG_MountBCD = MDECK_BracketMountBCD`
+
+Design intent summary:
+- the wheel guard is not the fixed-stack guard system
+- the wheel guard is not the motor cage
+- the wheel guard must preserve wheel clearance and not become a load path
+- the wheel guard must remain compatible with the flush radial tuning strategy
+
+18) OPERATING POLICY INTENT (`WHL_*`)
+The current v2.00 master still carries an explicit operating policy.
+This remains a controlled release behavior layer, not only a geometric layer.
+
+Controlled values currently mirrored from the master:
+- `WHL_NormalLabSpeedLimit_rpm = 2000`
+- `WHL_AdvancedSupervisedSpeedLimit_rpm = 2500`
+- `WHL_ScreeningSpeedLimit_rpm = 3000`
+- `WHL_RequiresWheelGuardForAnySpin = 1`
+- `WHL_RequiresBallastOrBenchMountAboveAdvancedSpeed = 1`
+- `WHL_RequiresBenchMountForScreeningSpeed = 1`
+- `WHL_WorstCaseScreeningEccentricity = 0.20 mm`
+
+Controlled interpretation:
+- normal portable lab use should live below the advanced supervised limit
+- speeds above the advanced limit require extra stability support
+- screening-speed operation is treated as a more constrained engineering mode
+- imbalance screening remains tied to a severe-but-believable eccentricity, not to arbitrary catastrophic offsets
+
+19) MASS / PORTABILITY INTENT
+The current v2.00 master continues to contain explicit lower-bound portable-mass bookkeeping.
+These values are not a final procurement-weight declaration; they are controlled
+release checks used to support portability and safety thinking.
+
+Controlled values currently mirrored from the master:
+- `MASS_GB_BasePlate_g = 1026`
+- `MASS_SHB_Block_g = 81`
+- `MASS_GB_FeetSet_g = 24`
+- `MASS_GB_RemovableBallastRing_g = 552`
+- `MASS_WAD_g = 7`
+- `MASS_WHL_BareBody_g = 203`
+- `MASS_SystemLowerBound_NoBallast_g`
+- `MASS_SystemLowerBound_WithBallast_g`
+
+Controlled interpretation:
+- the no-ballast system remains portable-first
+- the ballast-installed system is a stability-upgraded configuration
+- the purchased hub reduces custom adapter mass relative to the older large placeholder
+- the one-piece webbed wheel keeps the rotating body close to the prior mass class while making the assembly complete
+
+20) WHAT THIS AUDIT NOW REJECTS IN THE WHEEL / PORTABLE-LAB DOMAIN
+The current controlled audit rejects the following interpretations:
+- a bare annulus with no defined motor-interface path
+- forcing the selected vendor hub into the old 4-hole / 30 mm BCD custom-adapter contract
+- protruding face-bolt stacks as the primary tuning method
+- tuning by a single asymmetric bolt in normal release operation
+- wheel guard merged conceptually with fixed-stack labyrinth guards
+- assuming 3000 rpm is the routine unsupervised classroom mode
+- assuming a friction interface alone replaces proper mounting discipline at higher speed
+
+21) WHAT REMAINS UNCHANGED
+This wheel-integration update does NOT casually change:
+- hub bearing insertion logic
+- outer-ring-only bearing support
+- retainer ownership of axial bearing capture
+- fixed-stack metrology chain
+- lower utility deck ownership of battery / utility electronics
+- motor deck baseline geometry contract unless deliberately revised upstream
+- portable-base safety logic
+- overall locked workflow discipline
+
+22) FILE ROLE DISCIPLINE
+This audit continues to mirror the locked workflow roles:
+- `Master_Skeleton_Equations_v2.00.txt` owns dimensions / Z-stack / architecture logic / portable-lab policy variables
+- `part_equation_map_v2.00.json` owns export contracts
+- `generate_part_equations_v2.py` owns workflow logic only
+- generated outputs remain disposable artifacts
+
+23) SYNCHRONIZATION REQUIREMENT
+After this audit update, the locked v2.00 stack should be understood as:
+- master = updated for vendor-hub wheel integration and rim tuning provisions
+- audit = updated to mirror that master state
+- map = updated because the wheel and adapter part contracts changed
+- generator = unchanged
+- generated outputs = regenerated from the locked stack after the master / map update
+
+24) FINAL CONTROL RULE
+For this release family, keep the discipline:
+- master first
+- audit mirror second
+- map second if contract changes are needed
+- generator third only if workflow logic changes
+- then regenerate
+- then re-import
+- then rebuild
+
+25) FINAL INTENT
+This audit exists to keep the project stable while extending the v2.00 stack from:
+- fixed-stack protection + portable-lab safety semantics
+
+to:
+- fixed-stack protection + portable-lab safety semantics + complete wheel-to-motor integration
+
+The purpose is:
+- remove the incomplete-wheel ambiguity
+- align the wheel around the chosen vendor hub
+- preserve guard-compatible tuning
+- preserve ownership boundaries
+- preserve workflow discipline
+- no redesign from zero
+
+
+26) ACTIVE-SET HYGIENE REQUIREMENT
+The controlled `v2.00` files must be treated as a single active release set.
+If older files with the same `v2.00` family still exist elsewhere, they must be archived, renamed as superseded, or otherwise kept out of the active workflow.
+This audit rejects a situation where two different semantic meanings of `v2.00` remain simultaneously active.
+
+27) PART-CONTRACT COMPLETENESS CLARIFICATION
+For the active wheel integration state, the `Reaction_Wheel` export contract should explicitly carry the wheel-body interpretation and the tuning-envelope assumptions needed to model the part directly.
+Therefore the active map is expected to include:
+- `WHL_UsesOnePieceWebbedWheel`
+- `WHL_TuneMinimumInnerWall`
+- `WHL_TuneSetScrewNominalLength`
+
+For the active vendor-hub path, the `Wheel_Adapter` export contract may also carry the vendor-path identity flags so the part file remains self-describing in the controlled release context.
+This does not change geometry; it strengthens interpretability and reduces future misreads.

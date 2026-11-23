@@ -1,0 +1,14 @@
+"____ GENERATED PART EXPORTS ____" = 0
+"SYS_VersionTag" = 2
+"LBG_Enabled" = 1
+"LBG_IsStructural" = 0
+"LBG_FlangeOD" = 48mm
+"LBG_FlangeThk" = 1mm
+"LBG_MountBCDia" = 41.6mm
+"LBG_MountClearDia" = 3.4mm
+"LBG_MountCount" = 4
+"LBG_SkirtID" = 24mm
+"LBG_SkirtOD" = 27mm
+"LBG_SkirtLength" = 6mm
+"LBG_MinScrewReach" = 8mm
+"LBG_RecommendedScrewReach" = 9.5mm

@@ -1,0 +1,10 @@
+"____ GENERATED PART EXPORTS ____" = 0
+"SYS_VersionTag" = 2
+"SHB_PlanLength" = 40mm
+"SHB_PlanWidth" = 30mm
+"SHB_Height" = 25mm
+"SHB_BoreDia" = 8mm
+"SHB_SplitClampSlotWidth" = 1.5mm
+"SHB_ClampPitch" = 24mm
+"SHB_ClampClearDia" = 4.5mm
+"SHB_ClampScrewCount" = 2

@@ -1,0 +1,14 @@
+"____ GENERATED PART EXPORTS ____" = 0
+"SYS_VersionTag" = 2
+"UTL_DeckOD" = 115mm
+"UTL_DeckThk" = 5mm
+"UTL_CentralClearDia" = 30.25mm
+"UTL_SupportBCDia" = 58mm
+"UTL_SupportHoleClearDia" = 4.5mm
+"UTL_MainTowerMountBCD" = 80mm
+"UTL_MainTowerMountHoleClearDia" = 4.5mm
+"UTL_MainTowerMountHoleCount" = 4
+"CTRL_MainTowerOD" = 8mm
+"LDG_MountBCDia" = 48mm
+"LDG_MountClearDia" = 3.4mm
+"LDG_MountCount" = 3

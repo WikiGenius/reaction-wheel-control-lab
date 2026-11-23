@@ -1,0 +1,10 @@
+"____ GENERATED PART EXPORTS ____" = 0
+"SYS_VersionTag" = 2
+"GB_RemovableBallastEnabled" = 1
+"GB_RemovableBallastShapeRing" = 1
+"GB_RemovableBallastOD" = 180mm
+"GB_RemovableBallastID" = 100mm
+"GB_RemovableBallastThk" = 4mm
+"GB_RemovableBallastMountBCD" = 140mm
+"GB_RemovableBallastMountClearDia" = 5.5mm
+"GB_RemovableBallastMountCount" = 4

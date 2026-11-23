@@ -1,0 +1,14 @@
+"____ GENERATED PART EXPORTS ____" = 0
+"SYS_VersionTag" = 2
+"LDG_Enabled" = 1
+"LDG_IsStructural" = 0
+"LDG_FlangeThk" = 3mm
+"LDG_MountBCDia" = 48mm
+"LDG_MountClearDia" = 3.4mm
+"LDG_MountCount" = 3
+"LDG_ID" = 31mm
+"LDG_WallThk" = 3.75mm
+"LDG_OD" = 38.5mm
+"LDG_SkirtLength" = 18mm
+"LDG_ServiceSlotWidth" = 8mm
+"LDG_ServiceSlotSectorDeg" = 225

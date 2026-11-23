@@ -1,0 +1,176 @@
+HUB ASSEMBLY LOGIC NOTE — v2.00
+Project: Reaction_Wheel_Lab_Project
+Subsystem: Rotating Base / Bearing Hub
+Status: Controlled engineering clarification note aligned to the current v2.00 release family
+Intent: Prevent future misinterpretation of hub geometry, bearing insertion logic, and retainer ownership while keeping the file family synchronized with the active v2.00 stack
+
+1) PURPOSE
+This note records the intended assembly logic of the Bearing_Hub and its retainers.
+It exists to prevent a CAD interpretation where a lower-clearance feature blocks bearing insertion or where a retainer is incorrectly treated as the primary seat-forming geometry.
+
+2) RELEASE-FAMILY ALIGNMENT
+This note is intentionally kept in the v2.00 file family.
+It is explanatory and controlling in interpretation, but it does not replace the master equations file as the dimensional source of truth.
+
+Current synchronized release-family context:
+- Master_Skeleton_Equations_v2.00.txt = dimensional and Z-stack authority
+- authority_mirror_review_audit_v2.00.txt = controlled mirror / audit state
+- part_equation_map_v2.00.json = export contracts
+- generate_part_equations_v2.py = workflow logic
+
+3) FROZEN HUB SEMANTICS FROM THE CURRENT v2.00 MASTER
+The active v2.00 authority keeps the following hub semantics:
+- no shoulder legacy mode
+- dual bearing seats
+- bridge between seats
+- lower-clearance logic present
+- two retainers
+- outer-ring-only retention
+- lower bearing inserts from bottom
+- upper bearing inserts from top
+- main hub body provides seats and bridge only
+- lower retainer owns lower axial capture
+- upper structural retainer owns upper axial capture
+- upper structural retainer owns deck interface
+
+These semantics remain valid and are not affected by the portable-base / wheel-guard updates elsewhere in the same release family.
+
+4) ASSEMBLY-LOGICAL RULE
+The main Bearing_Hub must remain assembly-logical:
+- lower bearing inserts from the bottom end
+- upper bearing inserts from the top end
+- each bearing must be able to reach its seat from its insertion side
+- no hub feature may create an insertion choke smaller than bearing OD on the insertion path
+
+For the current release family, this rule is mandatory and not optional.
+
+5) CRITICAL CLARIFICATION OF THE LOWER-CLEARANCE FAMILY
+The variable family:
+- HUB_LowerClearanceDia
+- HUB_LowerOverallDepth
+- HUB_LowerClearancePocketDepth
+
+must NOT be interpreted as a one-piece bottom-mouth restriction in the main hub body if that restriction blocks the 22 mm OD bearing from entering.
+
+In other words:
+- lower-clearance intent is real
+- lower-clearance intent is owned by the main hub geometry
+- lower-clearance intent must not invalidate bearing insertion
+- lower-clearance geometry must coexist with an end-open lower seat interpretation
+
+6) RETENTION OWNERSHIP
+Axial retention is performed by:
+- Lower_Bearing_Retainer
+- Upper_Structural_Retainer
+
+The main Bearing_Hub provides:
+- lower bearing seat
+- upper bearing seat
+- seat bridge
+- retainer screw interface
+- deck mount interface
+
+The main Bearing_Hub does NOT rely on a legacy shoulder-mode concept for axial capture.
+
+7) CONTACT OWNERSHIP
+The rotating hub side is allowed to contact:
+- bearing outer rings only
+
+The hub / retainer system must not clamp or interfere with:
+- bearing inner rings
+- fixed shaft hardware
+- lower washer
+- lower collar
+- upper washer
+- upper collar
+- spacer tube
+- fixed metrology stack above the extension / seat chain
+
+8) PRACTICAL CAD RULE
+When modeling Bearing_Hub:
+- the lower bearing seat must be open to the bottom insertion side
+- the upper bearing seat must be open to the top insertion side
+- the bridge must separate the two bearing seats
+- if a clearance feature exists for lower fixed hardware, it must not lie on the bearing insertion path in a way that prevents assembly
+- retainer face lands must remain outer-ring-only in function
+- retainer hole placement must remain outside the bearing seat support region and outside the bridge-stop clearance region
+
+9) RETAINER INTERPRETATION RULE
+The lower retainer is a capture element, not a replacement for the seat.
+The upper structural retainer is both:
+- the upper axial capture element
+- the deck-interface-carrying retainer
+
+Therefore:
+- do not move seat ownership into the retainer model
+- do not reinterpret the upper retainer as a free decorative ring
+- do not reinterpret the lower retainer as a shoulder substitute machined into the hub body
+
+10) RELATION TO THE FIXED STACK
+The hub clarification must remain compatible with the fixed-stack reference chain:
+- shaft block and fixed shaft geometry
+- washer / collar / spacer inner-ring stack
+- coupler / extension chain
+- adapter collar
+- magnet seat and magnet face chain
+- encoder face / PCB / mount surface chain
+
+Therefore hub edits must not casually disturb:
+- bearing Z planes
+- hub seat Z ownership
+- lower retainer Z ownership
+- upper retainer Z ownership
+- metrology chain above the hub
+
+11) WHAT THIS NOTE EXPLICITLY REJECTS
+This controlled note rejects the following interpretations:
+- a one-piece bottom-mouth restriction smaller than bearing OD on the lower insertion path
+- hub geometry that forces the lower bearing to "teleport" into place from the side or through an impossible path
+- retainer geometry that clamps the inner rings
+- reinterpretation of outer-ring-only retention as inner-ring retention
+- moving deck interface ownership from the upper structural retainer into the lower retainer without a deliberate upstream redesign
+- any reading where portable-base updates are incorrectly treated as permission to relax hub assembly logic
+
+12) WHAT REMAINS UNCHANGED BY THE PORTABLE LAB BASE UPDATE
+The recent portable-lab-oriented master updates do NOT casually change:
+- hub bearing insertion logic
+- bearing seat ownership
+- retainer ownership of axial capture
+- outer-ring-only support logic
+- hub-to-fixed-stack compatibility rules
+
+Portable-base, feet, ballast, wheel-guard, and operating-policy updates live elsewhere in the master and audit. They do not alter the hub interpretation recorded here.
+
+13) RECOMMENDED MODELING INTERPRETATION FOR THIS v2.00 FILE FAMILY
+Preferred interpretation for the active v2.00 CAD state:
+- main hub body = two end-open bearing seats + bridge + lower-hardware relief + retainer/thread interfaces + deck interface support region
+- lower retainer performs lower axial capture
+- upper structural retainer performs upper axial capture and deck interface ownership
+- lower fixed-hardware clearance is handled without creating an impossible bearing insertion path
+
+14) DESIGN INTENT SUMMARY
+Target intent is:
+- logical assembly
+- no wobble
+- outer-ring-only support
+- preserved low center of mass strategy
+- preserved no-shoulder release philosophy
+- preserved metrology-chain compatibility
+- preserved ownership boundaries between hub and retainers
+
+15) RELEASE DISCIPLINE
+This note is explanatory only.
+Geometry changes must still follow the controlled workflow:
+master first → map second if needed → generator third if needed → regenerate → re-import → rebuild
+
+Generated outputs remain disposable artifacts and must not be hand-edited.
+
+
+16) RELATION TO THE ACTIVE WHEEL / VENDOR-HUB PATH
+The active `v2.00` wheel-side interpretation may evolve around a purchased wheel hub and a complete one-piece webbed reaction wheel.
+That wheel-side interpretation does NOT relax the hub requirements recorded in this note.
+In particular, wheel-interface updates do NOT grant permission to:
+- block lower bearing insertion
+- move outer-ring seat ownership into a retainer
+- reinterpret the hub as an inner-ring clamp feature
+- disturb the fixed-stack metrology chain casually

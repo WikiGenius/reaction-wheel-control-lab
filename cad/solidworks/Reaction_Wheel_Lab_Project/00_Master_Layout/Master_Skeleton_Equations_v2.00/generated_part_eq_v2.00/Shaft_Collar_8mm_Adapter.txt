@@ -1,0 +1,7 @@
+"____ GENERATED PART EXPORTS ____" = 0
+"SYS_VersionTag" = 2
+"ADP_CollarBore" = 8mm
+"ADP_CollarOD" = 22mm
+"ADP_CollarWidth" = 9mm
+"SEAT_ScrewBCDia" = 15.5mm
+"SEAT_TapDrillDia" = 2.5mm

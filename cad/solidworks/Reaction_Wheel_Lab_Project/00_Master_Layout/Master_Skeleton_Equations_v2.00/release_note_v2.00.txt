@@ -1,0 +1,26 @@
+REVIEW STEP 7 — SYNCHRONIZED RELEASE PACK (v2.00)
+
+This package contains the controlled v2.00 release set after the ordered review/update pass:
+1) Master_Skeleton_Equations_v2.00.txt
+2) authority_mirror_review_audit_v2.00.txt
+3) hub_assembly_logic_note_v2.00.txt
+4) fixed_shaft_stack_reference_v2.00.txt
+5) part_equation_map_v2.00.json
+6) generate_part_equations_v2.py
+7) regenerated outputs + manifest
+
+Status:
+- v2.00 naming family preserved
+- generator reviewed; no workflow-logic change required
+- regeneration completed under --strict
+- generated outputs should be treated as disposable derived artifacts
+
+Portable-lab update intent now included in the synchronized set:
+- larger/thicker aluminum base
+- rubber feet support
+- optional removable ballast ring
+- wheel guard contract
+- portable vs supervised speed-policy variables/checks
+
+Controlled workflow remains:
+master first -> map second if needed -> generator third if needed -> regenerate -> re-import -> rebuild

@@ -1,0 +1,240 @@
+FIXED SHAFT STACK REFERENCE — v2.00
+Project: Reaction_Wheel_Lab_Project
+Subsystem: Fixed Shaft / Magnet / Encoder metrology chain
+Status: Controlled human-readable stack contract aligned to current v2.00 master
+Intent: Preserve the stationary shaft, inner-ring stack, and encoder/magnet metrology chain while keeping the v2.00 family synchronized after the portable-base update.
+
+1) PURPOSE
+This file summarizes the fixed shaft stack in plain engineering language so the CAD intent stays readable during future revisions.
+It exists to prevent future revisions from casually disturbing the stationary shaft stack while modifying the hub, retainers, lower deck, controller disk, or portability features.
+
+2) RELEASE-FAMILY RULE
+This note is intentionally kept in the v2.00 file family.
+It mirrors and explains the current controlled `Master_Skeleton_Equations_v2.00.txt` state.
+Portable-base additions in the current v2.00 master do NOT transfer ownership of the fixed stack away from this subsystem.
+
+3) PRIMARY FUNCTION
+The fixed shaft subsystem owns:
+- the stationary shaft
+- inner-ring support of the two bearings
+- spacer between inner rings
+- lower washer and lower collar
+- upper washer and upper collar
+- coupler and extension
+- adapter collar
+- magnet seat and magnet
+- encoder metrology reference chain
+
+4) CORE DIMENSIONS (CURRENT v2.00 MASTER)
+Shaft:
+- shaft diameter = 8.0 mm
+- current magnet mount mode = 1
+
+Bearings:
+- bearing ID = 8 mm
+- bearing OD = 22 mm
+- bearing width = 7 mm
+- inner-ring spacing = 50 mm
+- center spacing = 57 mm
+
+Lower fixed hardware under lower bearing:
+- washer OD = 16 mm
+- washer thickness = 1.6 mm
+- collar OD = 20 mm
+- collar width = 9 mm
+- total lower hardware height = 10.6 mm
+- required bearing-seat lift over lower hardware = 12.6 mm
+
+Spacer:
+- spacer ID = 8.2 mm
+- spacer OD = 12 mm
+- spacer nominal length = 50.0 mm
+- target machining length = 50.02 mm
+
+Coupler / extension:
+- coupler length = 25 mm
+- internal gap = 1 mm
+- steel engagement = 12 mm
+- extension engagement = 12 mm
+- extension diameter = 8 mm
+- current extension length = 25 mm
+- clear above upper shaft collar = 2 mm
+
+Adapter collar:
+- adapter collar bore = 8 mm
+- adapter collar OD = 22 mm
+- adapter collar width = 9 mm
+
+Magnet / seat:
+- magnet diameter = 6 mm
+- magnet thickness = 3 mm
+- seat mount screw count = 2
+- seat screw clear dia = 3.4 mm
+- seat tap drill dia = 2.5 mm
+
+Encoder sensing chain:
+- encoder air gap = 1.5 mm
+- encoder PCB thickness = 1.6 mm
+- encoder safety margin = 2 mm
+- disk clear above encoder = 2 mm
+
+Portable-base / lab release context (non-owning here):
+- ground base OD = 220 mm
+- ground base plate thickness = 10 mm
+- bench-mount BCD = 170 mm
+These portable-base values are part of the overall v2.00 release, but they do NOT alter the fixed-stack ownership boundaries.
+
+5) Z-CHAIN INTENT
+Ground / block:
+- `GB_Z_Ground` = system ground reference
+- `Z_ShaftBlockTop` = top of shaft block
+
+Bearing planes:
+- `Z_BearingLowerBottom` = lower bearing bottom face
+- `Z_BearingLowerTop` = lower bearing top face
+- `Z_BearingUpperBottom` = upper bearing bottom face
+- `Z_BearingUpperTop` = upper bearing top face
+
+Inner-ring hardware planes:
+- `Z_WasherLower_Top / Bottom`
+- `Z_CollarLower_Top / Bottom`
+- `Z_SpacerBottom / Top`
+- `Z_WasherUpper_Bottom / Top`
+- `Z_CollarUpper_Bottom / Top`
+
+Coupler / extension planes:
+- `Z_CouplerBottom / Top`
+- `Z_SteelShaftTop`
+- `Z_ExtensionBottom / Top`
+- `Z_CollarAdapter_Bottom / Top`
+
+Magnet / seat planes:
+- `Z_SeatMountPlane`
+- `Z_SeatBottom`
+- `Z_SeatTop`
+- `Z_MagnetFace`
+- `Z_MagnetBottom`
+- `Z_FixedStackTip`
+- `Z_ShaftTip`
+
+Encoder planes:
+- `Z_EncoderFace`
+- `Z_EncoderPCB_Back`
+- `Z_EncoderPCB_Top`
+- `Z_EncoderMountSurface`
+
+Controller-disk interface plane:
+- `Z_CTRL_DiskBottom`
+
+6) OWNERSHIP RULE
+The fixed shaft subsystem owns:
+- shaft-supported inner-ring stack
+- magnet and encoder metrology chain
+- all lower/upper washer and collar logic
+- all fixed stack Z references
+- the meaning of `Z_FixedStackTip`
+- the meaning of the encoder sensing chain and mount-surface reference
+
+The rotating hub subsystem owns:
+- outer-ring seats
+- retainers
+- rotating deck interfaces
+- rotating lower-deck support clearance around the fixed stack
+
+The portable-base subsystem owns:
+- base footprint
+- feet
+- ballast provisions
+- bench-mount provisions
+- transport/stability support features
+
+7) INTERFACE RULE TO HUB
+The fixed shaft stack must not be used to justify a hub shape that blocks bearing insertion.
+The lower washer and collar are fixed-shaft hardware.
+They are real and must be cleared in the assembled system.
+But that clearance must NOT be achieved by creating an impossible lower insertion path for the lower bearing in the main hub body.
+
+Therefore:
+- lower fixed-hardware clearance is real
+- bearing insertion from the lower end must remain assembly-logical
+- outer-ring seat ownership remains with the hub
+- inner-ring hardware ownership remains with the fixed stack
+
+8) METROLOGY RULE
+Maintain these relationships:
+- magnet face to encoder face = 1.5 mm air gap
+- encoder PCB back to encoder mount surface logic remains controlled by the master
+- encoder mount surface logic must remain consistent with the controller disk bottom chain
+- no casual change is allowed in this metrology stack without updating the master first
+
+Also preserve these sanity relationships from the master:
+- `CHK_EncoderAirGapError` should remain zero by construction
+- `CHK_EncoderMountSurfaceEqualsDiskBottom` should remain consistent with the controlled offset chain
+- `CHK_NoShaftThroughHoleGap` must remain positive
+- magnet-to-steel clearance checks must remain valid
+
+9) WHAT THE PORTABLE-BASE UPDATE DOES NOT CHANGE
+The current portable-lab base update in v2.00 does NOT casually change:
+- shaft diameter
+- bearing planes
+- washer/collar/spacer stack
+- coupler / extension chain
+- adapter collar logic
+- magnet seat ownership
+- magnet-to-encoder air gap
+- controller-disk metrology interface ownership
+
+In other words:
+- portability changed the support platform
+- portability did NOT redefine the fixed stack
+
+10) REVIEW RULE
+Whenever any of the following changes:
+- hub
+- lower retainer
+- upper structural retainer
+- magnet seat
+- encoder mount
+- controller disk bottom logic
+- lower deck center-clearance logic
+- wheel-guard or portability features that alter central clearances near the fixed stack
+
+then re-check this fixed shaft stack reference and verify:
+- bearing planes
+- lower hardware under lower bearing
+- magnet-to-encoder chain
+- no-shaft-through-hole gap
+- magnet-to-steel separation
+- no contact between fixed stack and rotating protective features
+
+11) RELEASE DISCIPLINE
+This file is explanatory and contractual, not a generated output.
+Geometry changes must still follow the controlled workflow:
+- master first
+- audit second if needed
+- clarification notes / references next
+- map only if part contracts change
+- generator only if workflow logic changes
+- then regenerate
+- then re-import
+- then rebuild
+
+12) FINAL INTENT
+This note exists to keep the fixed shaft, magnet, and encoder chain readable and protected while the broader v2.00 release evolves toward a more portable lab system.
+The purpose is:
+- preserve metrology integrity
+- preserve ownership boundaries
+- prevent accidental hub/fixed-stack role confusion
+- keep the CAD logic maintainable
+- avoid redesign from zero
+
+
+13) NON-OWNING CURRENT WHEEL CONTEXT
+The active `v2.00` release now uses a vendor-hub wheel interface path and a one-piece webbed wheel body.
+That wheel-side clarification does NOT transfer ownership of any of the following away from the fixed stack:
+- shaft-supported inner-ring hardware
+- coupler / extension / adapter collar chain
+- magnet seat and magnet face chain
+- encoder metrology chain
+
+Wheel-side updates may change rotating packaging, but they do not redefine the fixed shaft subsystem.

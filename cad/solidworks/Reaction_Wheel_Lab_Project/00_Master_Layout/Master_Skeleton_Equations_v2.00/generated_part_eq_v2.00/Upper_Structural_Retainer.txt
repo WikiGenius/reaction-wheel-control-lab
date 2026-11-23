@@ -1,0 +1,37 @@
+"____ VERSION / MIRROR CONTROL ____" = 0
+"SYS_VersionTag" = 2.00
+
+"____ BEARING BLOCK ____" = 0
+"BRG_BearingOD" = 22mm
+
+"____ HUB SEATS + BRIDGE ____" = 0
+"HUB_MainBodyOD" = 48mm
+
+"____ HUB RETAINERS + DECK INTERFACE ____" = 0
+"HUB_RetainerScrewSize" = 3mm
+"HUB_RetainerScrewCount" = 4
+"HUB_RetainerClearDia" = 3.4mm
+"HUB_RetainerEdgeMin" = 1.5mm
+"HUB_RetainerBoltR" = ("HUB_MainBodyOD" / 2) - ("HUB_RetainerClearDia" / 2) - "HUB_RetainerEdgeMin"
+"HUB_RetainerBCDia" = 2*"HUB_RetainerBoltR"
+
+"____ HUB RETAINER THREAD / BLIND-HOLE MACHINING INTENT ____" = 0
+"HUB_RetainerThreadEngagementMin" = 3.0mm
+"HUB_RetainerThreadEngagementTarget" = 4.5mm
+"HUB_RetainerScrewIntoHubTarget" = "HUB_RetainerThreadEngagementTarget"
+"HUB_RetainerScrewIntoHubMin" = "HUB_RetainerThreadEngagementMin"
+"HUB_UpperStructuralRetainerThk" = 6.0mm
+"HUB_UpperStructuralRetainerOD" = 70mm
+"HUB_UpperRetainerCenterClearDia" = 20.6mm
+"HUB_DeckMountCount" = 4
+"HUB_DeckMountClearDia" = 4.5mm
+"HUB_DeckMountBCDia" = 58mm
+
+"____ HUB VARIABLE COMPATIBILITY ALIASES (KEEP v2.00 MAP STABLE) ____" = 0
+"HUB_UpperRetainerThk" = "HUB_UpperStructuralRetainerThk"
+"HUB_UpperRetainerOD" = "HUB_UpperStructuralRetainerOD"
+"HUB_UpperRetainerCenterHoleDia" = "HUB_UpperRetainerCenterClearDia"
+
+"____ GENERATED EXPORTS ____" = 0
+"USR_MinScrewReach" = "HUB_UpperRetainerThk" + "HUB_RetainerScrewIntoHubMin"
+"USR_RecommendedScrewReach" = "HUB_UpperRetainerThk" + "HUB_RetainerScrewIntoHubTarget"

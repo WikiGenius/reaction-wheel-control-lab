@@ -1,0 +1,15 @@
+"____ GENERATED PART EXPORTS ____" = 0
+"SYS_VersionTag" = 2
+"CDG_Enabled" = 1
+"CDG_IsStructural" = 0
+"CDG_FlangeThk" = 3mm
+"CDG_MountBCDia" = 54mm
+"CDG_MountClearDia" = 3.4mm
+"CDG_MountCount" = 3
+"CDG_ID" = 42.5mm
+"CDG_WallThk" = 2mm
+"CDG_OD" = 46.5mm
+"CDG_SkirtLength" = 30mm
+"CDG_ServiceSlotWidth" = 10mm
+"CDG_ServiceSlotHeight" = 18mm
+"CDG_ServiceSlotSectorDeg" = 225

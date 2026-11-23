@@ -1,0 +1,4 @@
+"____ GENERATED PART EXPORTS ____" = 0
+"SYS_VersionTag" = 2
+"SFT_ShaftDiameter" = 8mm
+"SFT_FixedShaftCutLength" = 126.2mm

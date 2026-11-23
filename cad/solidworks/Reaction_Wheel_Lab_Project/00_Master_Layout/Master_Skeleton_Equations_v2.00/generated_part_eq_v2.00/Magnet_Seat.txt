@@ -1,0 +1,47 @@
+"____ VERSION / MIRROR CONTROL ____" = 0
+"SYS_VersionTag" = 2.00
+"SYS_MagnetMountMode" = 1
+
+"____ FIXED SHAFT / INNER-RING HARDWARE ____" = 0
+"SFT_ShaftDiameter" = 8mm
+
+"____ COUPLER + EXTENSION (WITH INTERNAL GAP) ____" = 0
+"EXT_Dia" = "SFT_ShaftDiameter"
+
+"____ ADAPTER COLLAR ON EXTENSION (COLLAR #3, NON-MAGNETIC) ____" = 0
+"ADP_CollarOD" = 22mm
+
+"____ MAGNET + SEAT GEOMETRY ____" = 0
+"MAG_MagnetDia" = 6mm
+"MAG_MagnetThk" = 3mm
+"SEAT_PocketClear_Dia" = 0.25mm
+"CPL_OD" = 20mm
+"SEAT_NestOD" = IIF("SYS_MagnetMountMode" > 0, "ADP_CollarOD", "CPL_OD")
+"MAG_SeatPocketForNestDia" = "SEAT_NestOD" + "SEAT_PocketClear_Dia"
+"MAG_SeatPocketForNestDepth" = 1.0mm
+"SEAT_WallThk" = 2.0mm
+"SEAT_MountScrewCount" = 2
+"SEAT_ScrewClearDia" = 3.4mm
+"MAG_SeatFitClear_Rad" = 0.15mm
+"MAG_SeatPocketDia" = "MAG_MagnetDia" + 2*"MAG_SeatFitClear_Rad"
+"MAG_SeatGlueMargin" = 0.20mm
+"MAG_SeatPocketDepth" = "MAG_MagnetThk" + "MAG_SeatGlueMargin"
+"MAG_SeatPocketChamfer" = 0.30mm
+"MAG_SeatFloorThk" = 1.4mm
+"MAG_SeatThk" = "MAG_SeatPocketDepth" + "MAG_SeatPocketForNestDepth" + "MAG_SeatFloorThk"
+"MAG_SeatOD" = "MAG_SeatPocketForNestDia" + 2*"SEAT_WallThk"
+
+"____ BOLT CIRCLE (ROBUST: LIMIT BY METAL OD AND BORE) ____" = 0
+"CPL_BoreDia" = "EXT_Dia"
+"SEAT_NestBoreDia" = IIF("SYS_MagnetMountMode" > 0, "EXT_Dia", "CPL_BoreDia")
+"SEAT_TapDrillDia" = 2.5mm
+"SEAT_BoreWallMin" = 2.0mm
+"SEAT_MetalOuterEdgeMin" = 1.5mm
+"SEAT_PlasticOuterEdgeMin" = 1.5mm
+"SEAT_BoltR_Min" = ("SEAT_NestBoreDia" / 2) + ("SEAT_TapDrillDia" / 2) + "SEAT_BoreWallMin"
+"SEAT_MetalOD" = IIF("SYS_MagnetMountMode" > 0, "ADP_CollarOD", "CPL_OD")
+"SEAT_BoltR_MaxMetal" = ("SEAT_MetalOD" / 2) - ("SEAT_TapDrillDia" / 2) - "SEAT_MetalOuterEdgeMin"
+"SEAT_BoltR_MaxSeat" = ("MAG_SeatOD" / 2) - ("SEAT_ScrewClearDia" / 2) - "SEAT_PlasticOuterEdgeMin"
+"SEAT_BoltR_Max" = IIF("SEAT_BoltR_MaxMetal" < "SEAT_BoltR_MaxSeat", "SEAT_BoltR_MaxMetal", "SEAT_BoltR_MaxSeat")
+"SEAT_BoltR_Target" = ("SEAT_BoltR_Min" + "SEAT_BoltR_Max") / 2
+"SEAT_ScrewBCDia" = 2*"SEAT_BoltR_Target"

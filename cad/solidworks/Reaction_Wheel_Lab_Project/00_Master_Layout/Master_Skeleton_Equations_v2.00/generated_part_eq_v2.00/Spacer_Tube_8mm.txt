@@ -1,0 +1,6 @@
+"____ GENERATED PART EXPORTS ____" = 0
+"SYS_VersionTag" = 2
+"HW_SpacerID" = 8.2mm
+"HW_SpacerOD" = 12mm
+"HW_SpacerLen" = 50mm
+"HW_SpacerTargetLen_ForMachining" = 50.02mm

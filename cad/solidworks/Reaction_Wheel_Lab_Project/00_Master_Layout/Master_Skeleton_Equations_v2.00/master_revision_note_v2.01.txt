@@ -1,0 +1,95 @@
+MASTER REVISION NOTE — v2.01
+Project: Reaction_Wheel_Lab_Project
+Applies to:
+- Master_Skeleton_Equations_v2.01.txt
+- authority_mirror_review_audit_v2.01.txt
+- part_equation_map_v2.01.json (only if contract changes)
+Status: Controlled revision note
+
+1) WHY THIS REVISION EXISTS
+This revision is created to record a specific engineering clarification discovered during Bearing_Hub review:
+
+The v2.00 hub variable family is valid as a release baseline, but its assembly intent was not stated explicitly enough to prevent a non-logical CAD interpretation.
+
+2) WHAT WAS DISCOVERED
+A one-piece main hub body cannot be interpreted with a lower-mouth restriction smaller than bearing OD on the lower bearing insertion path.
+If that interpretation is used, the lower 608 bearing cannot be assembled into the hub logically.
+
+This is not a rejection of v2.00 release intent.
+It is a clarification of how the release intent must be implemented.
+
+3) WHAT REMAINS FROZEN FROM v2.00
+The following remain intentionally preserved unless explicitly changed later:
+- no-shoulder hub semantics
+- outer-ring-only retention
+- lower utility deck geometry
+- controller disk / encoder cavity geometry
+- motor deck frozen baseline
+- wheel subsystem baseline
+- battery / utility electronics / IMU / wiring subsystem contracts
+- mass and top-level stack targets
+
+4) REVISION RULE FOR HUB INTERPRETATION
+For v2.01 onward, interpret the hub as follows:
+- lower bearing inserts from bottom
+- upper bearing inserts from top
+- main hub body provides the two bearing seats and the seat bridge
+- retainers provide axial capture
+- lower-clearance intent must not block bearing insertion
+
+5) WHAT SHOULD BE REVIEWED IN THE MASTER
+Review these variables and their interpretation:
+- HUB_BearingSeatDia
+- HUB_BearingSeatDepth
+- HUB_SeatBridgeLen
+- HUB_LowerClearanceDia
+- HUB_LowerOverallDepth
+- HUB_LowerClearancePocketDepth
+- HUB_LowerRetainerCenterHoleDia
+- HUB_UpperRetainerCenterHoleDia
+- Z_HubBottom
+- Z_HubLowerClearanceTop
+- Z_HubLowerClearanceBottom
+- Z_HubLowerRetainerTop
+- Z_HubLowerRetainerBottom
+
+6) WHAT SHOULD NOT CHANGE CASUALLY
+Do not casually change:
+- fixed shaft stack geometry
+- bearing planes
+- magnet / encoder metrology chain
+- lower utility deck locked height
+- main / upper tower family
+- controller disk cavity geometry
+- motor deck frozen baseline
+- wheel baseline
+- mass baseline checks
+
+7) REQUIRED DOCUMENTATION DISCIPLINE
+This revision must be reflected in:
+- a new master file version
+- a matching audit note
+- regenerated part exports
+- regenerated manifest
+- SolidWorks re-import and rebuild
+
+8) CONTROLLED WORKFLOW
+Always follow:
+master first → map second if needed → generator third if needed → regenerate → re-import → rebuild
+
+Generated outputs remain disposable artifacts and must not be hand-edited.
+
+9) FILE-NAMING DISCIPLINE
+Use the same version family for the full revision set:
+- Master_Skeleton_Equations_v2.01.txt
+- authority_mirror_review_audit_v2.01.txt
+- part_equation_map_v2.01.json (if changed)
+- generated_part_eq_v2.01/manifest.json
+
+10) FINAL INTENT OF v2.01
+v2.01 exists to make the project more robust, not to restart it.
+The purpose is:
+- clearer assembly logic
+- clearer ownership boundaries
+- better long-term maintainability
+- no repeated redesign from zero

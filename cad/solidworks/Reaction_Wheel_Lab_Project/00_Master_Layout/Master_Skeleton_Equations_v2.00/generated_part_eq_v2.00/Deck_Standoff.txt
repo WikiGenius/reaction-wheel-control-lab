@@ -1,0 +1,4 @@
+"____ GENERATED PART EXPORTS ____" = 0
+"SYS_VersionTag" = 2
+"CTRL_MainTowerOD" = 8mm
+"STD_DeckStandoffLength" = 50.1mm

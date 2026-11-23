@@ -1,0 +1,17 @@
+# MATLAB and Simulink generated files
+*.asv
+*.m~
+*.mex*
+*.autosave
+*.slxc
+slprj/
+matlab_crash_dump.*
+
+# CAD temporary files
+~$*
+*.bak
+
+# Workstation files
+Thumbs.db
+.DS_Store
+.vscode/

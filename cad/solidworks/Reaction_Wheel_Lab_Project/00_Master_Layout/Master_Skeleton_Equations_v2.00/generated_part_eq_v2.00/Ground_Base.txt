@@ -1,0 +1,16 @@
+"____ GENERATED PART EXPORTS ____" = 0
+"SYS_VersionTag" = 2
+"GB_BaseOD" = 220mm
+"GB_BasePlateThk" = 10mm
+"GB_BenchMountBCD" = 170mm
+"GB_BenchHoleClearDia" = 5.5mm
+"GB_BenchMountCount" = 4
+"GB_FeetEnabled" = 1
+"GB_FeetCount" = 4
+"GB_FeetOD" = 20mm
+"GB_FeetThk" = 4mm
+"GB_FeetBCD" = 180mm
+"GB_RemovableBallastEnabled" = 1
+"GB_RemovableBallastMountBCD" = 140mm
+"GB_RemovableBallastMountClearDia" = 5.5mm
+"GB_RemovableBallastMountCount" = 4

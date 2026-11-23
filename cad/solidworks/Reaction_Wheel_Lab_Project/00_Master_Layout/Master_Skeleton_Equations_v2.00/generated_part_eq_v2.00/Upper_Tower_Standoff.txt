@@ -1,0 +1,4 @@
+"____ GENERATED PART EXPORTS ____" = 0
+"SYS_VersionTag" = 2
+"UTR_OD" = 8mm
+"UTR_StandoffLength" = 24mm

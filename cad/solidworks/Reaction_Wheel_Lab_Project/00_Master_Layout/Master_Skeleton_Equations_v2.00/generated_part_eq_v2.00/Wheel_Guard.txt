@@ -1,0 +1,12 @@
+"____ GENERATED PART EXPORTS ____" = 0
+"SYS_VersionTag" = 2
+"WHG_Enabled" = 1
+"WHG_IsStructural" = 0
+"WHG_IsPolycarbonatePreferred" = 1
+"WHG_ID" = 156mm
+"WHG_WallThk" = 3mm
+"WHG_OD" = 162mm
+"WHG_TotalAxialCover" = 26mm
+"WHG_MountBCD" = 60mm
+"WHG_MountClearDia" = 4.5mm
+"WHG_MountCount" = 4
