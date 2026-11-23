@@ -1,6 +1,6 @@
 # Mechanical design
 
-The SolidWorks study models a spoked flywheel, vertical motor, rotating deck stack, and lower support. See the [assembly preview](previews/lab-assembly.png) and [deck-stack detail](previews/deck-stack.png).
+The SolidWorks study models a spoked flywheel, vertical motor, rotating deck stack, and lower support. See the [full assembly view](previews/reaction-wheel-full-assembly.png), the [alternate design view](previews/lab-assembly.png), and the [deck-stack detail](previews/deck-stack.png).
 
 ## Editable SolidWorks files
 

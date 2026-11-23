@@ -4,7 +4,7 @@ A bench-top reaction wheel for the EE 381 Control Systems Laboratory at King Fah
 
 | Physical prototype | SolidWorks design study |
 | --- | --- |
-| <img src="evidence/photos/prototype-overview.jpg" alt="Assembled reaction-wheel rig with a black flywheel, blue decks, and electronics below" width="300"> | <img src="cad/previews/lab-assembly.png" alt="SolidWorks rendering of the wheel, vertical motor, stacked decks and base" width="345"> |
+| <img src="evidence/photos/prototype-overview.jpg" alt="Assembled reaction-wheel rig with a black flywheel, blue decks, and electronics below" width="300"> | <img src="cad/previews/reaction-wheel-full-assembly.png" alt="SolidWorks view of the flywheel, electronics decks, central shaft, and base plate" width="345"> |
 
 [Watch the bench operation clip](evidence/videos/bench-operation.mp4) · [View the build evidence](evidence/README.md) · [Browse the CAD files](cad/README.md) · [Run the MATLAB model](simulation/README.md)
 
