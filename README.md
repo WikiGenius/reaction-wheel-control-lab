@@ -1,40 +1,107 @@
 # Reaction Wheel Control Lab
 
-A reaction-wheel teaching testbed developed for the EE 381 Control Systems Laboratory at King Fahd University of Petroleum and Minerals (KFUPM). The objective was to help control engineering students connect feedback-control theory with real electromechanical behavior through a physical system they could observe and control. This portfolio repository brings together SolidWorks mechanical designs, photographs and videos of the assembled prototype, and MATLAB studies of the wheel and rotating base.
+**A physical control-systems teaching testbed for KFUPM EE 381**
 
-| Physical prototype | SolidWorks design study |
+Designed to help students move from feedback-control equations to an observable electromechanical system: a motor accelerates a flywheel, and the reaction torque changes the angle of the rotating base.
+
+<p align="center">
+  <img src="evidence/photos/prototype-overview.jpg" alt="Physical reaction wheel teaching testbed" width="46%">
+  <img src="cad/previews/reaction-wheel-full-assembly.png" alt="SolidWorks reaction wheel assembly" width="46%">
+</p>
+<p align="center"><em>Assembled teaching prototype (left) and SolidWorks design study (right).</em></p>
+
+**[Watch the physical bench demonstration](evidence/videos/bench-operation.mp4)** · [Additional clip](evidence/videos/short-operation.mp4) · [CAD and fabrication](cad/README.md) · [MATLAB simulation](simulation/README.md)
+
+## How it works
+
+The wheel and base rotate about a common vertical axis. The motor applies **equal and opposite torques** to the two bodies, so accelerating the flywheel produces a reaction on the base. The model tracks their **absolute** angles, while the motor acts on their **relative** motion.
+
+| Symbol | Meaning |
 | --- | --- |
-| <img src="evidence/photos/prototype-overview.jpg" alt="Assembled reaction-wheel rig with a black flywheel, blue decks, and electronics below" width="300"> | <img src="cad/previews/reaction-wheel-full-assembly.png" alt="SolidWorks view of the flywheel, electronics decks, central shaft, and base plate" width="345"> |
+| `\theta_b,\ \omega_b` | Base angle and angular velocity |
+| `\theta_w,\ \omega_w` | Wheel angle and angular velocity |
+| `J_b,\ J_w` | Base and wheel moments of inertia |
+| `i,\ K_t,\ N,\ \eta` | Motor current, torque constant, gear ratio, efficiency |
 
-[Watch the bench operation clip](evidence/videos/bench-operation.mp4) · [View the build evidence](evidence/README.md) · [Browse the CAD files](cad/README.md) · [Run the MATLAB model](simulation/README.md)
+```math
+\begin{aligned}
+\omega_{\mathrm{rel}} &= \omega_w - \omega_b, \\
+\tau_w &= \eta N K_t i, \\
+J_b\dot\omega_b &= -\tau_w + \tau_{\mathrm{joint}} - \tau_{\mathrm{base}} + \tau_{\mathrm{ext},b}, \\
+J_w\dot\omega_w &= +\tau_w - \tau_{\mathrm{joint}} + \tau_{\mathrm{ext},w}.
+\end{aligned}
+```
 
-## Project work
+These are the **simplified rotational equations** (zero optional reflected actuator inertia). The implemented [MATLAB dynamics](simulation/matlab/rw_dynamics.m) also support an additional relative-motion inertia term, making the inertia matrix coupled.
 
-| Area | Work shown |
-| --- | --- |
-| Mechanical design | A vertical wheel and motor stack, rotating base, structural decks, motor bracket, and electronics mounting. Designs began with CNC fabrication in mind and were adjusted for 3D printing during the build. The CAD folder includes native SolidWorks assemblies and parts, assembly views, and STEP exports. |
-| Hardware integration | A physical rig with a spoked wheel, motor, stacked plates, and wired electronics. The build gallery shows the whole assembly and close-ups of the lower deck. |
-| Modeling and control | A coupled wheel and base model with current, friction, drive limits, and battery behavior. The MATLAB package includes an open-loop voltage pulse, wheel-speed PI, and base-angle PD. |
-| Gear ratio study | The same open-loop pulse applied to nominal 6:1, 10:1 and 19:1 model variants, with comparisons of base angle, relative wheel speed and current. |
+Motor electrical dynamics include resistance, inductance, and back-EMF:
 
-## Run the simulation
+```math
+L\dot i = V_m - Ri - K_e N(\omega_w-\omega_b).
+```
 
-Open MATLAB in this repository and run the existing entry points.
+### Control experiments
+
+| Mode | Objective | Implementation |
+| --- | --- | --- |
+| Open-loop voltage | Observe the uncontrolled wheel/base response | A timed motor-voltage pulse |
+| Wheel-speed PI | Regulate relative wheel speed | Wheel-speed PI feeding an inner current PI loop |
+| Base-angle PD | Regulate rotating-base angle | Outer angle PD requesting wheel torque, followed by current PI |
+
+For base-angle control, the **negative sign** is physically important: positive wheel torque accelerates the base in the opposite direction.
+
+```math
+\begin{aligned}
+e_\theta &= \theta_{\mathrm{ref}}-\theta_b, \\
+\tau_{w,\mathrm{des}} &= -\bigl(K_p e_\theta-K_d\omega_b\bigr), \\
+i_{\mathrm{ref}} &= \operatorname{sat}\!\left(\frac{\tau_{w,\mathrm{des}}}{\eta N K_t}\right).
+\end{aligned}
+```
+
+The simulation includes motor/battery behavior, friction, command saturation, current and speed limits, and a [safety supervisor](simulation/matlab/safety_supervisor.m). See the [controller code](simulation/matlab/rw_controller.m) for implementation details.
+
+## Physical build and fabrication
+
+<p align="center">
+  <img src="evidence/photos/flywheel-oblique-view.jpg" alt="Reaction wheel close-up" width="31%">
+  <img src="cad/previews/deck-stack.png" alt="Mechanical deck-stack CAD" width="31%">
+  <img src="evidence/photos/electronics-close-up.jpg" alt="Control electronics" width="31%">
+</p>
+
+The mechanical designs were initially intended for **CNC fabrication**. During the build, some components were modified to suit **3D printing**. The SolidWorks and STEP files document the mechanical design study, but the exact published CAD revision is **not confirmed as an as-built match** to the photographed prototype.
+
+Browse the [SolidWorks assemblies and STEP exports](cad/README.md) or the [prototype photos and video clips](evidence/README.md).
+
+## MATLAB studies and results
+
+From the repository root, open MATLAB and run:
 
 ```matlab
 cd('simulation/matlab')
-RUN_TESTS_FIRST
-RUN_OPEN_LOOP_COMPARE
+RUN_TESTS_FIRST         % Open loop, wheel-speed PI, and base-angle PD
+RUN_OPEN_LOOP_COMPARE   % Nominal 6:1, 10:1, and 19:1 gear variants
 ```
 
-The [simulation guide](simulation/README.md) describes the model assumptions, checks, and plotting entry points. The [system overview](docs/system-overview.md) connects the physical reaction-wheel testbed to the control model and its educational purpose.
+The [simulation guide](simulation/README.md) reports the following checks performed in **MATLAB R2025a**:
 
-## Educational purpose and fabrication
+| Simulated mode | Peak motor current | Peak relative wheel speed | Validation |
+| --- | ---: | ---: | --- |
+| Open-loop pulse | 1.183 A | 11.392 rad/s | Passed |
+| Wheel-speed PI | 0.497 A | 31.669 rad/s | Passed |
+| Base-angle PD | 1.180 A | 14.468 rad/s | Passed |
 
-The reaction-wheel system was developed as a hands-on teaching platform for EE 381 Control Systems Laboratory students to study feedback control and apply concepts from the classroom to a real physical system. The mechanical designs were initially prepared with CNC manufacturing in mind. During fabrication, some components were modified to make them suitable for 3D printing. Consequently, the CAD files document the design work but may not reproduce every modification made to the assembled prototype.
+These are **model-based sanity checks**, including current/speed limits, fault status, and an energy-consistency check; they are not hardware tracking-accuracy measurements. The gear-ratio comparison applies the same normalized voltage pulse across three model variants, allowing students to examine the resulting change in base motion, wheel speed, and current.
 
-## Evidence and scope
+## Demonstration and evidence boundary
 
-The photos and clips document the assembled prototype and its physical bench operation. The MATLAB studies and validation checks document modeled behavior; they do not, by themselves, establish that the simulated controllers were implemented on the physical rig. Measured closed-loop tracking error, repeatability, and simulation-to-hardware agreement are not included in the current repository. The exact CAD revision corresponding to the photographed build is unconfirmed because of the fabrication adjustments.
+- **Physical evidence:** photographs and [bench-operation footage](evidence/videos/bench-operation.mp4) of the assembled reaction-wheel testbed.
+- **Simulation evidence:** MATLAB models, controller studies, and numerical validation results.
+- **Not yet documented:** measured closed-loop angle tracking, repeated hardware trials, or quantitative simulation-to-hardware agreement. The videos alone do not establish that the simulated controllers were executed on hardware.
 
-Project documentation credits **Muhammed Elyamani** in the context of the KFUPM EE 381 teaching lab. See [credits and rights](docs/credits.md) for component attribution and reuse considerations.
+An [FFmpeg-based GitHub Actions workflow](.github/workflows/generate-demo-gif.yml) is provided to create a compact looping GIF from the existing bench video. The MP4 link above remains the primary verified demonstration.
+
+---
+
+**Project context:** EE 381 Control Systems Laboratory · Electrical Engineering · King Fahd University of Petroleum and Minerals (KFUPM).
+
+Project documentation credits **Muhammed Elyamani**. See [credits and component rights](docs/credits.md).
