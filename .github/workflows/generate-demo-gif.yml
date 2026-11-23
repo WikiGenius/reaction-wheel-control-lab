@@ -1,0 +1,35 @@
+name: Generate bench demo GIF
+
+on:
+  push:
+    paths:
+      - '.github/workflows/generate-demo-gif.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render-gif:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Generate short looping GIF from physical bench video
+        run: |
+          ffmpeg -hide_banner -loglevel error -y \
+            -i evidence/videos/bench-operation.mp4 -t 6 \
+            -filter_complex "[0:v]fps=8,scale=640:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=80[p];[s1][p]paletteuse=dither=bayer:bayer_scale=4" \
+            -loop 0 evidence/videos/reaction-wheel-demo.gif
+          test -s evidence/videos/reaction-wheel-demo.gif
+
+      - name: Commit generated GIF
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add evidence/videos/reaction-wheel-demo.gif
+          if ! git diff --cached --quiet; then
+            git commit -m "Add optimized reaction-wheel bench GIF"
+            git push
+          fi
