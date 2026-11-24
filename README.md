@@ -10,7 +10,10 @@ A reaction-wheel testbed designed to help control engineering students connect *
 </p>
 <p align="center"><sub>Physical prototype (left) · SolidWorks design study (right)</sub></p>
 
-<!-- AUTO_GIF_PREVIEW -->
+<p align="center">
+  <img src="evidence/videos/reaction-wheel-demo.gif" alt="Two views of the physical reaction-wheel rig during bench operation" width="300">
+</p>
+<p align="center"><sub>Looping excerpts from both bench demonstration clips</sub></p>
 
 **[Watch the original bench video](evidence/videos/bench-operation.mp4)** · [CAD files](cad/README.md) · [Simulation code](simulation/matlab/) · [Additional photos](evidence/README.md)
 
